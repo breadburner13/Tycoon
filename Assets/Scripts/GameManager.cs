@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Player player3;
     public Player player4;
     public Player dealer;
+    public bool isRevolution = false;
+    List<List<Card>> pile = new List<List<Card>>();
 
     void Awake()
     {
@@ -21,9 +23,27 @@ public class GameManager : MonoBehaviour
         Destroy(dealer);
     }
 
+    #region Compare
+    public bool CompareValues(Card card1, int value2)
+    {
+        int value1 = card1.getValue(); //The card we're going to play
+        if(value1 == 666)
+        {
+            return true;
+        }
+        if(value2 == 666 && value1 == 3)
+        {
+            return card1.getSuit() == "Spades";
+        }
+        if(isRevolution)
+        {
+            return value2 > value1;
+        }
+        return value1 > value2;
+    } 
+    #endregion
 
-
-
+    
 
 
 

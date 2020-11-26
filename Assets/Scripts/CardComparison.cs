@@ -52,6 +52,7 @@ public class CardComparison : MonoBehaviour
     }
     public bool CompareValues(Card card1, int value2)
     {
+        //Iterate through hand, compare each card to value of whatever was last played
         int value1 = card1.getValue(); //The card we're going to play
         if(value1 == 666)
         {
