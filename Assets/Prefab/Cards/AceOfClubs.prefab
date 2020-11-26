@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 14
-  suit: Club
+  suit: Clubs
   cardid: Ace of Clubs
   playable: 0
   selected: 0
