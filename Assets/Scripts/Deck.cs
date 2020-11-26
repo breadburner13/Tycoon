@@ -1,44 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-
-public class TestGame : MonoBehaviour
+public class Deck : MonoBehaviour
 {
-    public class Card
+    public static void shuffle(int[] cardindex, int n)
     {
-        public int value;
-        public string suit;
-        public string cardid;
-
-        public Card(int val, string su, string cid) // Constructor for a single card
-        {
-            this.value = val;
-            this.suit = su;
-            this.cardid = cid;
-        }
-        public int getValue() // Returns value of card
-        {
-            return value;
-        }
-
-        public string getSuit() // Returns suit of card
-        {
-            return suit;
-        }
-        public string getCardID()
-        {
-            return cardid;
-        }
-
-    }
-    // public Card singleCard = new Card(4, "Diamonds");
-    public static void shuffle(int[] card,
-                               int n)
-    {
-
         System.Random rand = new System.Random();
 
         for (int i = 0; i < n; i++)
@@ -48,10 +15,9 @@ public class TestGame : MonoBehaviour
             int r = i + rand.Next(56 - i);
 
             //swapping the elements
-            int temp = card[r];
-            card[r] = card[i];
-            card[i] = temp;
-
+            int temp = cardindex[r];
+            cardindex[r] = cardindex[i];
+            cardindex[i] = temp;
         }
     }
     public static List<Card> Shuffle()
@@ -71,7 +37,7 @@ public class TestGame : MonoBehaviour
         new Card(12, "Hearts", "Queen of Hearts"), new Card(13, "Spades", "King of Spades"), new Card(13, "Diamonds", "King of Diamonds"), new Card(13, "Clubs", "King of Clubs"),
         new Card(13, "Hearts", "King of Hearts"), new Card(666, "Joker", "Joker1"), new Card(666, "Joker", "Joker2"), new Card(666, "Joker", "Joker3"), new Card(666, "Joker", "Joker4")};
 
-    // Array of cards from 0 to 55
+    // Array of Cards from 0 to 55
         int[] withJokerIndices = new int[56]; 
         for(int i = 0; i < 56; i++)
         {
@@ -86,33 +52,5 @@ public class TestGame : MonoBehaviour
         }
         //PlayerHand player1 = new PlayerHand(withJokers);
         return withJokers;
-    }
-    public class PlayerHand
-    {
-      List<Card> cards = new List<Card>();
-      public PlayerHand(List<Card> cards)
-      {
-        this.cards = cards;
-      }
-      public void showCards()
-      {
-        for(int i = 0; i < 56; i++)
-        {
-            Debug.Log(cards[i].getCardID());
-        }
-      }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        PlayerHand player1 = new PlayerHand(Shuffle());
-        player1.showCards();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
