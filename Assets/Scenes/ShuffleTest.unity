@@ -807,11 +807,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b588280ae01266944bbb6cba6ce0de0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 702789307}
-  player2: {fileID: 1712457586}
-  player3: {fileID: 1076927377}
-  player4: {fileID: 160375376}
+  turn: 0
   dealer: {fileID: 1153349238}
+  players:
+  - {fileID: 702789307}
+  - {fileID: 1712457586}
+  - {fileID: 1076927377}
+  - {fileID: 160375376}
 --- !u!4 &1793685603
 Transform:
   m_ObjectHideFlags: 0

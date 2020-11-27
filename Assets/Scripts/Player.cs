@@ -64,8 +64,46 @@ public class Player : MonoBehaviour
           }
       }
 
-    // public List<Card> play()
-    // {
-        
-    // }
+    public bool compareValues(Card card1, int value2)
+    {
+        if(value2 == 0) //When any card can be played
+        {
+            return true;
+        }
+        int value1 = card1.getValue(); //The card we're going to play
+        if(value1 == 666)
+        {
+            return true;
+        }
+        if(value2 == 666 && value1 == 3)
+        {
+            return card1.getSuit() == "Spades";
+        }
+        if(GameManager.isRevolution)
+        {
+            return value2 > value1;
+        }
+        return value1 > value2;
+    }
+
+    public bool sameValue(Card card, int value2)
+    {
+        int value1 = card.getValue();
+        return value1 == value2 || value1 == 666;
+    }
+
+    public List<Card> play(int value) //value is the value of last card played
+    {
+        List<Card> playedCards = new List<Card>();
+        foreach (Card card in this.hand)
+        {
+            if(compareValues(card, value))
+            {
+                playedCards.Add(card);
+                hand.Remove(card);
+                break;
+            }
+        }
+        return playedCards;
+    }
 }
