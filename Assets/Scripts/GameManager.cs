@@ -6,46 +6,63 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Player player1;
-    public Player player2;
-    public Player player3;
-    public Player player4;
+    //public Player player1;
+    //public Player player2;
+    //public Player player3;
+    //public Player player4;
+    public int turn;
     public Player dealer;
-    public bool isRevolution = false;
-    List<List<Card>> pile = new List<List<Card>>();
+    public static bool isRevolution = false;
+    public List<Player> players = new List<Player>(); 
+    public List<List<Card>> pile = new List<List<Card>>();
 
     void Awake()
     {
-        dealer.dealCards(player1);
-        dealer.dealCards(player2);
-        dealer.dealCards(player3);
-        dealer.dealCards(player4);
+        // dealer.dealCards(player1);
+        // dealer.dealCards(player2);
+        // dealer.dealCards(player3);
+        // dealer.dealCards(player4);
+        foreach (Player player in players)
+        {
+            dealer.dealCards(player);
+        }
+        turn = 2;
         Destroy(dealer);
+        //delete this later
+        List<Card> dummyList = new List<Card>();
+        dummyList.Add(new Card(0, "Spades", "placeholder"));
+        pile.Add(dummyList);
+        for(int i = 0; i < 10; i++)
+        {
+            foreach (Player player in players)
+            {
+                updatePile(player);
+                Debug.Log(pile[pile.Count - 1][0].getCardID());
+            }
+        }
     }
 
     #region Compare
-    public bool CompareValues(Card card1, int value2)
-    {
-        int value1 = card1.getValue(); //The card we're going to play
-        if(value1 == 666)
-        {
-            return true;
-        }
-        if(value2 == 666 && value1 == 3)
-        {
-            return card1.getSuit() == "Spades";
-        }
-        if(isRevolution)
-        {
-            return value2 > value1;
-        }
-        return value1 > value2;
-    } 
+     
     #endregion
 
+    public void updatePile(Player currentPlayer)  
+    {
+        List<Card> playedCards = currentPlayer.play(pile[pile.Count - 1][0].getValue()); //fix this later
+        if(playedCards.Count == 0) 
+        {
+            return;
+        } 
+        pile.Add(playedCards);
+    }
+
+    public void takeTurn()
+    {
+
+    }
     
 
-
+}
 
 //     // public Card singleCard = new Card(4, "Diamonds");
 //     public static void shuffle(int[] card,
@@ -175,4 +192,4 @@ public class GameManager : MonoBehaviour
 //     {
 
 //     }
-}
+
