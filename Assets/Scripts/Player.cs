@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
             return true;
         }
         int value1 = card1.getValue(); //The card we're going to play
-        if(value1 == 666)
+        if(value1 == 666 && value2 != 666)
         {
             return true;
         }

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     //public Player player3;
     //public Player player4;
     public int turn;
+    public int pass;
     public Player dealer;
     public static bool isRevolution = false;
     public List<Player> players = new List<Player>(); 
@@ -27,12 +28,14 @@ public class GameManager : MonoBehaviour
             dealer.dealCards(player);
         }
         turn = 2;
+        pass = 0;
         Destroy(dealer);
         //delete this later
-        List<Card> dummyList = new List<Card>();
-        dummyList.Add(new Card(0, "Spades", "placeholder"));
-        pile.Add(dummyList);
-        for(int i = 0; i < 10; i++)
+        // List<Card> dummyList = new List<Card>();
+        // dummyList.Add(new Card(0, "Spades", "placeholder"));
+        // pile.Add(dummyList);
+        Mafreidyne();
+        for(int i = 0; i < 1000; i++)
         {
             foreach (Player player in players)
             {
@@ -46,14 +49,35 @@ public class GameManager : MonoBehaviour
      
     #endregion
 
+    public void Mafreidyne()   //clears the deck
+    {
+        pile.Clear();
+        List<Card> dummyList = new List<Card>();
+        dummyList.Add(new Card(0, "Spades", "placeholder"));
+        pile.Add(dummyList);
+        Debug.Log("Charge, Johanna!");
+    }
+
     public void updatePile(Player currentPlayer)  
     {
         List<Card> playedCards = currentPlayer.play(pile[pile.Count - 1][0].getValue()); //fix this later
         if(playedCards.Count == 0) 
         {
+            pass += 1;
+            if(pass == 4) 
+            {
+                pass = 0;
+                Mafreidyne();
+            }
             return;
-        } 
+        }
+        pass = 0; 
         pile.Add(playedCards);
+        if(playedCards[0].getCardID() == "Three of Spades" && pile.Count >= 2 && pile[pile.Count - 2][0].getValue() == 666) 
+        {
+            Debug.Log("Three of Spades");
+            Mafreidyne();
+        }
     }
 
     public void takeTurn()
